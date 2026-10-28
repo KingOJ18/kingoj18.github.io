@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zino Joshua — Creative Technologist</title>
+    <meta
+      name="description"
+      content="Graphic design, photography and AI-assisted web design by Zino Joshua."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body style="margin: 0">
+    <div class="kp">
+      <div class="kp-progress" aria-hidden="true"></div>
+      <div class="kp-blob one" aria-hidden="true"></div>
+      <div class="kp-blob two" aria-hidden="true"></div>
+      <div class="kp-glow" aria-hidden="true"></div>
+
+      <!-- NAVIGATION: edit menu links here -->
+      <header class="kp-header">
+        <div class="kp-bar">
+          <a href="#home" class="kp-logo" aria-label="Zino Joshua, home">
+            <img src="assets/images/kings-collectives-light.png" alt="Kings Collectives" />
+          </a>
+          <nav id="site-nav" class="kp-nav" aria-label="Primary navigation">
+            <a href="#about">About</a>
+            <a href="#design">Design</a>
+            <a href="#photography">Photography</a>
+            <a href="#web">Web</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <button
+            id="menu"
+            class="kp-menu"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            <span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <main class="kp-main">
+        <!-- HOME: edit your introduction here -->
+        <section id="home" class="kp-wrap kp-hero">
+          <div class="kp-tile kp-hero-name kp-reveal">
+            <span class="kp-badge"><i></i> Creative technologist · Lagos, Nigeria</span>
+            <div>
+              <h1 class="kp-name" aria-label="Zino Joshua">
+                <span>Z</span><span>I</span><span>N</span><span>O</span>
+                <span class="kp-outline"
+                  ><span>J</span><span>O</span><span>S</span><span>H</span><span>U</span
+                  ><span>A</span></span
+                >
+              </h1>
+              <p class="kp-fullname">Zino Oluwademiladeogo Joshua</p>
+            </div>
+            <p class="kp-lead">
+              Graphic designer, web developer and AI website creator exploring the space where
+              technology, design and visual storytelling meet.
+            </p>
+            <div class="kp-actions">
+              <a href="#design" class="kp-btn" data-magnetic><span>View my work ↓</span></a>
+              <a href="#about" class="kp-btn-ghost" data-magnetic>About me</a>
+            </div>
+          </div>
+          <figure class="kp-tile kp-hero-photo kp-reveal" style="margin: 0; --d: 1" data-tilt>
+            <img src="assets/images/profile.jpg" alt="Zino Joshua seated outdoors" />
+            <span class="kp-sticker">Lagos, Nigeria</span>
+          </figure>
+          <div class="kp-tags kp-reveal" style="--d: 2">
+            <span class="kp-pill purple">Graphic Designer</span>
+            <span class="kp-pill blue">Photographer</span>
+            <span class="kp-pill mint">AI Web Designer</span>
+            <span class="kp-pill sun">Prompt Engineering</span>
+            <span class="kp-pill dark">HTML · CSS · JavaScript</span>
+          </div>
+          <div class="kp-disc">
+            <a href="#design" class="kp-tile kp-reveal purple" style="--d: 0">
+              <span class="num"><span>01</span><b>↗</b></span>
+              <span
+                ><h2>Graphic Design</h2>
+                <p>
+                  Purposeful visual communication through layout, typography, colour, branding
+                  and advertising.
+                </p></span
+              >
+            </a>
+            <a href="#photography" class="kp-tile kp-reveal blue" style="--d: 1">
+              <span class="num"><span>02</span><b>↗</b></span>
+              <span
+                ><h2>Photography</h2>
+                <p>
+                  A visual practice around light, composition, editing, emotion and everyday
+                  stories.
+                </p></span
+              >
+            </a>
+            <a href="#web" class="kp-tile kp-reveal mint" style="--d: 2">
+              <span class="num"><span>03</span><b>↗</b></span>
+              <span
+                ><h2>AI + Web Design</h2>
+                <p>
+                  Functional digital experiences with HTML, CSS, JavaScript and AI-assisted
+                  workflows.
+                </p></span
+              >
+            </a>
+          </div>
+        </section>
+
+        <!-- SCROLLING BANNER: filled in by js/script.js -->
+        <div class="kp-marquee" aria-hidden="true"><div id="marquee"></div></div>
+
+        <!-- ABOUT: edit biography and skills here -->
+        <section id="about" class="kp-wrap kp-section">
+          <div class="kp-head kp-reveal">
+            <div>
+              <span class="kp-eyebrow">01 · About</span>
+              <h2 class="kp-h2">Building across disciplines.</h2>
+            </div>
+          </div>
+          <div class="kp-about">
+            <div class="kp-tile kp-statement kp-reveal">
+              I’m an 18-year-old, 300-level <em>Computer Science</em> undergraduate at Redeemer’s
+              University with a growing passion for technology, creativity and digital innovation.
+            </div>
+            <div class="kp-tile kp-uni kp-reveal" style="--d: 1" data-tilt>
+              <span class="kp-mono">Level</span><strong>300</strong
+              ><span>Computer Science · Redeemer’s University</span>
+            </div>
+            <div class="kp-tile kp-text kp-reveal">
+              <p>
+                My work sits at the intersection of technology and creativity. I enjoy turning
+                ideas into visually appealing, functional and engaging digital experiences through
+                design, code and AI-assisted workflows.
+              </p>
+            </div>
+            <div class="kp-tile kp-text kp-reveal" style="--d: 1">
+              <p>
+                My process is rooted in structure, experimentation and continuous refinement. I’m
+                building towards becoming a versatile creative technologist who can bring ideas to
+                life through code, design, photography and visual storytelling.
+              </p>
+            </div>
+            <div class="kp-tile kp-skill kp-reveal">
+              <h3>Core practice</h3>
+              <ul>
+                <li>Graphic design</li>
+                <li>Web development</li>
+                <li>AI website creation</li>
+                <li>Prompt engineering</li>
+              </ul>
+            </div>
+            <div class="kp-tile kp-skill kp-reveal" style="--d: 1">
+              <h3>Web tools</h3>
+              <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>AI-assisted workflows</li>
+              </ul>
+            </div>
+            <div class="kp-tile kp-skill kp-reveal" style="--d: 2">
+              <h3>Developing skills</h3>
+              <ul>
+                <li>Photography</li>
+                <li>Videography</li>
+                <li>Visual storytelling</li>
+                <li>Photo editing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- GRAPHIC DESIGN: pieces are listed in js/script.js -->
+        <section id="design" class="kp-wrap kp-section">
+          <div class="kp-head kp-reveal">
+            <div>
+              <span class="kp-eyebrow">02 · Graphic Design</span>
+              <h2 class="kp-h2">Selected graphic design</h2>
+            </div>
+            <p>
+              Advertising, editorial, product and campaign visuals. Each piece is shown in its
+              original proportions — tap any to view it large.
+            </p>
+          </div>
+          <div class="kp-filters kp-reveal" data-for="design-grid"></div>
+          <div id="design-grid" class="kp-masonry"></div>
+        </section>
+
+        <!-- PHOTOGRAPHY: photos are listed in js/script.js -->
+        <section id="photography" class="kp-wrap kp-section">
+          <div class="kp-head kp-reveal">
+            <div>
+              <span class="kp-eyebrow">03 · Photography</span>
+              <h2 class="kp-h2">Selected photography</h2>
+            </div>
+            <p>
+              Observations of people, nature and places — an evolving study of light, composition,
+              editing and emotion.
+            </p>
+          </div>
+          <div class="kp-filters kp-reveal" data-for="photo-grid"></div>
+          <div id="photo-grid" class="kp-masonry photos"></div>
+        </section>
+
+        <!-- WEB PROJECTS: the full local project is in assets/projects -->
+        <section id="web" class="kp-wrap kp-section">
+          <div class="kp-head kp-reveal">
+            <div>
+              <span class="kp-eyebrow">04 · AI + Web Design</span>
+              <h2 class="kp-h2">Digital experiences, built with intention.</h2>
+            </div>
+            <p>
+              Exploring how AI can make website design and development faster, smarter and more
+              innovative while keeping the final experience purposeful.
+            </p>
+          </div>
+          <article class="kp-project">
+            <a
+              href="assets/projects/benasod-foundation-website/index.html"
+              target="_blank"
+              class="kp-tile kp-shot kp-reveal"
+              data-tilt
+              aria-label="Open the BENASOD Foundation website"
+            >
+              <span class="kp-browser" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="frame" style="display: block"
+                ><img
+                  src="assets/images/benasod-preview.jpg"
+                  alt="BENASOD Foundation website home page"
+                  loading="lazy"
+              /></span>
+            </a>
+            <div class="kp-tile kp-project-info kp-reveal" style="--d: 1">
+              <div>
+                <span class="kp-eyebrow">Website project · 2026</span>
+                <h3>BENASOD Foundation</h3>
+                <p>
+                  A complete multi-page foundation website with pages for the organisation’s
+                  story, programmes, impact, gallery, involvement and contact.
+                </p>
+              </div>
+              <div class="kp-stack">
+                <span class="kp-pill purple">HTML</span><span class="kp-pill blue">CSS</span
+                ><span class="kp-pill mint">JavaScript</span
+                ><span class="kp-pill sun">Responsive</span>
+              </div>
+              <a
+                href="assets/projects/benasod-foundation-website/index.html"
+                target="_blank"
+                class="kp-btn"
+                data-magnetic
+                style="width: fit-content"
+                ><span>Open project ↗</span></a
+              >
+            </div>
+          </article>
+        </section>
+
+        <article class="kp-project">
+            <a
+              href="assets/projects/astrovia/index.html"
+              target="_blank"
+              class="kp-tile kp-shot kp-reveal"
+              data-tilt
+              aria-label="Open the Astrovia website"
+            >
+              <span class="kp-browser" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="frame" style="display: block"
+                ><img
+                  src="assets/images/Astrovia-preview 2.png"
+                  alt="Astrovia website home page"
+                  loading="lazy"
+              /></span>
+            </a>
+            <div class="kp-tile kp-project-info kp-reveal" style="--d: 1">
+              <div>
+                <span class="kp-eyebrow">Website project · 2026</span>
+                <h3>Astrovia</h3>
+                <p>
+                Astrovia is a cinematic, interactive space exploration website that takes users on a journey from Earth to the far reaches of the Milky Way. Blending immersive 3D visuals, smooth travel transitions, and fascinating astronomical facts, it transforms learning about the universe into an engaging digital experience. Built with HTML, CSS, JavaScript, and Three.js.
+
+                </p>
+              </div>
+              <div class="kp-stack">
+                <span class="kp-pill purple">HTML</span><span class="kp-pill blue">CSS</span
+                ><span class="kp-pill mint">JavaScript</span
+                ><span class="kp-pill sun">Responsive</span>
+              </div>
+              <a
+                href="assets/projects/astrovia/index.html"
+                target="_blank"
+                class="kp-btn"
+                data-magnetic
+                style="width: fit-content"
+                ><span>Open project ↗</span></a
+              >
+            </div>
+          </article>
+        </section>
+
+        <!-- CONTACT: update contact details here -->
+        <section id="contact" class="kp-wrap kp-section">
+          <div class="kp-contact">
+            <div class="kp-tile kp-cta kp-reveal">
+              <span class="kp-eyebrow" style="color: inherit">05 · Contact</span>
+              <h2>Let’s make something considered, useful and visually strong.</h2>
+              <p>
+                For collaborations, creative projects and opportunities, reach out through email,
+                Instagram or WhatsApp.
+              </p>
+              <a href="mailto:joshuazino5@gmail.com" class="kp-btn-ghost" data-magnetic
+                >Start a conversation →</a
+              >
+            </div>
+            <div class="kp-links">
+              <a href="mailto:joshuazino5@gmail.com" class="kp-tile kp-link kp-reveal">
+                <span><small>Email</small><b>joshuazino5@gmail.com</b></span
+                ><span class="go">↗</span>
+              </a>
+              <a
+                href="https://www.instagram.com/kings_collectives17"
+                target="_blank"
+                rel="noreferrer"
+                class="kp-tile kp-link kp-reveal"
+                style="--d: 1"
+              >
+                <span><small>Instagram</small><b>@kings_collectives17</b></span
+                ><span class="go">↗</span>
+              </a>
+              <a
+                href="https://wa.me/2348085180321"
+                target="_blank"
+                rel="noreferrer"
+                class="kp-tile kp-link kp-reveal"
+                style="--d: 2"
+              >
+                <span><small>WhatsApp</small><b>+234 808 5180 321</b></span
+                ><span class="go">↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="kp-footer">
+        <span>© <span id="year"></span> Zino Joshua</span>
+        <span>Creative technologist · Designer · Photographer</span>
+      </footer>
+
+      <!-- IMAGE VIEWER -->
+      <div id="lightbox" class="kp-lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="kp-round close" aria-label="Close image">✕</button>
+        <img alt="" />
+        <div class="kp-lb-controls">
+          <button class="kp-round prev" aria-label="Previous image">←</button>
+          <span id="image-count"></span>
+          <button class="kp-round next" aria-label="Next image">→</button>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>

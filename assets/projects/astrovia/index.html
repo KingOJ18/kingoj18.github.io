@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-motion="full" data-text="normal" data-contrast="normal">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ASTROVIA — Your Journey Through the Universe</title>
+  <meta name="description" content="Astrovia is an interactive 3D journey from Earth through the Solar System, past the heliosphere and into the Milky Way. Scroll through space, stop at a destination and discover the universe.">
+  <meta name="theme-color" content="#02030a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2302030a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%232b6fb8'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' fill='none' stroke='%23cfe0ff' stroke-width='1.4' transform='rotate(-24 16 16)'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#panel">Skip to destination information</a>
+
+  <!-- 3D scene (fixed behind everything) -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div id="hotspot-layer" aria-label="Features on this destination"></div>
+
+  <!-- Loading overlay -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <div class="loader-mark" aria-hidden="true"></div>
+      <p class="loader-brand">ASTROVIA</p>
+      <p id="loader-text" class="loader-text">Preparing the cosmos</p>
+      <div class="loader-track" aria-hidden="true"><div id="loader-bar" class="loader-bar"></div></div>
+      <noscript><p class="loader-text">Astrovia needs JavaScript to run. Please enable it and reload.</p></noscript>
+    </div>
+  </div>
+
+  <!-- Minimal HUD -->
+  <header id="hud" class="hud">
+    <a id="brand" class="brand" href="#top" aria-label="ASTROVIA — back to the start">
+      <span class="brand-mark" aria-hidden="true"></span><span class="brand-name">ASTROVIA</span>
+    </a>
+    <div class="where" aria-live="off">
+      <span id="where-stage" class="where-stage"></span>
+      <span id="where-name" class="where-name"></span>
+    </div>
+    <div class="hud-actions" role="toolbar" aria-label="Tools">
+      <button id="btn-nav" class="hud-btn" type="button" aria-expanded="false" aria-controls="navigator"><span class="ico" data-icon="route"></span><span class="hud-label">Destinations</span></button>
+      <button id="btn-search" class="hud-btn" type="button" aria-label="Search destinations and astronomy terms"><span class="ico" data-icon="search"></span><span class="hud-label">Search</span></button>
+      <button id="btn-more" class="hud-btn" type="button" aria-expanded="false" aria-controls="tools-menu"><span class="ico" data-icon="grid"></span><span class="hud-label">Explore</span></button>
+      <button id="btn-sound" class="hud-btn icon-only" type="button" aria-pressed="false" aria-label="Ambient sound: off. Turn on"><span class="ico" data-icon="sound-off"></span></button>
+      <button id="btn-settings" class="hud-btn icon-only" type="button" aria-expanded="false" aria-controls="settings-pop" aria-label="Accessibility and motion settings"><span class="ico" data-icon="sliders"></span></button>
+      <button id="btn-menu" class="hud-btn icon-only mobile-only" type="button" aria-expanded="false" aria-controls="tools-menu" aria-label="Menu"><span class="ico" data-icon="menu"></span></button>
+    </div>
+    <div id="top-progress" class="top-progress" aria-hidden="true"><span id="top-progress-fill"></span></div>
+  </header>
+
+  <!-- Popovers -->
+  <nav id="tools-menu" class="popover tools-menu" hidden aria-label="Explore tools">
+    <ul class="menu-list">
+      <li class="mobile-only"><button type="button" data-action="navigator"><span class="ico" data-icon="route"></span>Destinations</button></li>
+      <li class="mobile-only"><button type="button" data-action="search"><span class="ico" data-icon="search"></span>Search and glossary</button></li>
+      <li><button type="button" data-action="compare"><span class="ico" data-icon="compare"></span>Compare Worlds</button></li>
+      <li><button type="button" data-action="scale"><span class="ico" data-icon="scale"></span>Cosmic Scale</button></li>
+      <li><button type="button" data-action="missions"><span class="ico" data-icon="rocket"></span>Space Missions</button></li>
+      <li><button type="button" data-action="log"><span class="ico" data-icon="log"></span>Mission Log</button></li>
+      <li><button type="button" data-action="glossary"><span class="ico" data-icon="book"></span>Glossary</button></li>
+      <li><button type="button" data-action="sources"><span class="ico" data-icon="link"></span>Sources and Further Reading</button></li>
+      <li><button type="button" data-action="about"><span class="ico" data-icon="info"></span>About Astrovia</button></li>
+      <li class="mobile-only"><button type="button" data-action="sound"><span class="ico" data-icon="sound-off"></span><span data-sound-label>Turn sound on</span></button></li>
+      <li class="mobile-only"><button type="button" data-action="settings"><span class="ico" data-icon="sliders"></span>Accessibility and motion</button></li>
+    </ul>
+  </nav>
+
+  <section id="settings-pop" class="popover settings-pop" hidden aria-labelledby="settings-title">
+    <h2 id="settings-title" class="pop-title">Accessibility and motion</h2>
+    <div class="set-group" role="radiogroup" aria-labelledby="set-motion">
+      <p id="set-motion" class="set-label">Motion</p>
+      <div class="seg" data-setting="motion">
+        <button type="button" role="radio" data-value="auto">Match my device</button>
+        <button type="button" role="radio" data-value="full">Full</button>
+        <button type="button" role="radio" data-value="reduced">Reduced</button>
+      </div>
+      <p class="set-help">Reduced motion replaces the light-speed streaks with gentle fades.</p>
+    </div>
+    <div class="set-row"><label for="set-paused">Pause animation</label><button id="set-paused" type="button" class="switch" role="switch" aria-checked="false" data-setting-toggle="paused"><span></span></button></div>
+    <div class="set-group" role="radiogroup" aria-labelledby="set-text">
+      <p id="set-text" class="set-label">Text size</p>
+      <div class="seg" data-setting="textSize"><button type="button" role="radio" data-value="normal">Standard</button><button type="button" role="radio" data-value="large">Large</button></div>
+    </div>
+    <div class="set-row"><label for="set-contrast">High contrast</label><button id="set-contrast" type="button" class="switch" role="switch" aria-checked="false" data-setting-toggle="contrast" data-on="high" data-off="normal"><span></span></button></div>
+    <div class="set-row"><label for="set-labels">Feature labels on 3D objects</label><button id="set-labels" type="button" class="switch" role="switch" aria-checked="true" data-setting-toggle="labels"><span></span></button></div>
+    <div class="set-row"><label for="set-lite">Simple view (no 3D)</label><button id="set-lite" type="button" class="switch" role="switch" aria-checked="false" data-setting-toggle="lite"><span></span></button></div>
+    <p class="set-help">Simple view shows every destination as an ordinary page. It is lighter on older devices.</p>
+    <div class="pop-foot"><button type="button" class="text-btn" data-action="accessibility">Keyboard shortcuts and accessibility notes</button></div>
+  </section>
+
+  <!-- Destination navigator -->
+  <aside id="navigator" class="navigator" hidden aria-label="Journey destinations">
+    <div class="nav-head"><h2>Destinations</h2><button type="button" class="icon-btn" data-close-nav aria-label="Close destinations"><span class="ico" data-icon="close"></span></button></div>
+    <p class="nav-sub">Jump anywhere, or keep scrolling. Distances in this tour are compressed.</p>
+    <div id="navigator-list" class="nav-list"></div>
+  </aside>
+
+  <!-- Journey progress rail -->
+  <nav id="rail" class="rail" aria-label="Journey progress">
+    <div id="rail-track" class="rail-track"><div id="rail-fill" class="rail-fill"></div></div>
+    <ol id="rail-list" class="rail-list"></ol>
+    <div id="rail-here" class="rail-here" aria-hidden="true"><span>You are here</span></div>
+  </nav>
+
+  <!-- Captions while travelling -->
+  <div id="hop" class="hop" aria-live="polite" aria-atomic="true"><span id="hop-kind" class="hop-kind"></span><span id="hop-text" class="hop-text"></span></div>
+
+  <!-- Opening experience -->
+  <section id="hero" class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Look beyond. Discover everything.</p>
+      <h1 id="hero-title" class="hero-title">ASTROVIA</h1>
+      <p class="hero-tagline">Your Journey Through the Universe.</p>
+      <p class="hero-intro">Humanity has always looked toward the stars. Now, take a closer journey through the worlds, mysteries, and discoveries that shape our understanding of the universe.</p>
+      <div class="hero-cta">
+        <button id="btn-begin" class="btn btn-primary" type="button">Begin Exploration <span class="ico" data-icon="arrow-down"></span></button>
+        <button id="btn-hero-nav" class="btn btn-ghost" type="button">Choose a destination</button>
+      </div>
+      <p id="hero-fact" class="hero-fact"></p>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll to travel</span><i></i></div>
+  </section>
+
+  <!-- Destination information panel -->
+  <aside id="panel" class="panel" tabindex="-1" aria-labelledby="panel-title" aria-live="polite">
+    <button id="panel-toggle" class="panel-toggle" type="button" aria-expanded="true" aria-controls="panel-scroll"><span class="ico" data-icon="chevron"></span><span class="sr-only">Hide information panel</span></button>
+    <div id="panel-scroll" class="panel-scroll"></div>
+    <div id="panel-foot" class="panel-foot"></div>
+  </aside>
+
+  <!-- Feature (hotspot) detail card -->
+  <aside id="feature-card" class="feature-card" hidden aria-live="polite">
+    <button type="button" class="icon-btn" data-close-feature aria-label="Close feature details"><span class="ico" data-icon="close"></span></button>
+    <p class="feature-eyebrow" id="feature-eyebrow"></p>
+    <h3 id="feature-title"></h3>
+    <p id="feature-text"></p>
+  </aside>
+
+  <!-- Inspect toolbar -->
+  <div id="inspect-bar" class="inspect-bar" role="toolbar" aria-label="Inspect controls">
+    <button type="button" class="tool-btn" data-inspect="zoom-out" aria-label="Zoom out"><span class="ico" data-icon="minus"></span></button>
+    <button type="button" class="tool-btn" data-inspect="zoom-in" aria-label="Zoom in"><span class="ico" data-icon="plus"></span></button>
+    <button type="button" class="tool-btn" data-inspect="reset" aria-label="Reset view"><span class="ico" data-icon="reset"></span><span class="tool-label">Reset</span></button>
+    <button type="button" class="tool-btn" data-inspect="labels" aria-pressed="true"><span class="ico" data-icon="tag"></span><span class="tool-label">Labels</span></button>
+    <button type="button" class="btn btn-primary btn-small" data-inspect="resume"><span class="ico" data-icon="arrow-down"></span>Resume journey</button>
+    <p class="inspect-hint">Drag to rotate · Pinch or use +/− to zoom · Esc to leave</p>
+  </div>
+
+  <!-- Journey length (the engine sets its height) -->
+  <main id="top">
+    <div id="journey-spacer" class="journey-spacer"></div>
+  </main>
+
+  <!-- Finale -->
+  <section id="finale" class="finale" aria-labelledby="finale-title">
+    <div class="finale-inner">
+      <p class="finale-note">You have explored a fraction of the universe. There is still so much left to discover.</p>
+      <h2 id="finale-title" class="finale-title">Every discovery begins with a question.</h2>
+      <div class="finale-actions">
+        <button type="button" class="btn btn-primary" data-finale="restart">Restart the Journey</button>
+        <button type="button" class="btn btn-ghost" data-finale="another">Explore Another Destination</button>
+        <button type="button" class="btn btn-ghost" data-finale="about">Learn More About Astrovia</button>
+      </div>
+      <p class="finale-model-note">The Milky Way shown here is an illustrative model based on current research, not a photograph. Our galaxy has no sharply defined outer edge.</p>
+    </div>
+  </section>
+
+  <!-- Simple view / fallback (also holds the same content for screen-reader and no-WebGL visitors) -->
+  <section id="fallback" class="fallback" aria-label="All destinations" hidden></section>
+
+  <footer id="site-footer" class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <p class="footer-brand">ASTROVIA</p>
+        <p>An interactive journey through space for curious people of every level. Look beyond. Discover everything.</p>
+      </div>
+      <nav class="footer-col" aria-label="Explore">
+        <h2>Explore</h2>
+        <ul>
+          <li><button type="button" class="link-btn" data-action="compare">Compare Worlds</button></li>
+          <li><button type="button" class="link-btn" data-action="scale">Cosmic Scale</button></li>
+          <li><button type="button" class="link-btn" data-action="missions">Space Missions</button></li>
+          <li><button type="button" class="link-btn" data-action="glossary">Glossary</button></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Learn">
+        <h2>Learn</h2>
+        <ul>
+          <li><button type="button" class="link-btn" data-action="about">Research group</button></li>
+          <li><button type="button" class="link-btn" data-action="sources">Educational resources</button></li>
+          <li><button type="button" class="link-btn" data-action="sources">References</button></li>
+          <li><button type="button" class="link-btn" data-action="log">Mission Log</button></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="About and help">
+        <h2>Help</h2>
+        <ul>
+          <li><button type="button" class="link-btn" data-action="accessibility">Accessibility</button></li>
+          <li><button type="button" class="link-btn" data-action="about">Contact</button></li>
+          <li><button type="button" class="link-btn" data-action="restart">Back to the start</button></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-credit" id="footer-credit"></p>
+  </footer>
+
+  <!-- One reusable modal dialog -->
+  <dialog id="modal" class="modal" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <header class="modal-head"><h2 id="modal-title"></h2><button type="button" class="icon-btn" data-close aria-label="Close dialog"><span class="ico" data-icon="close"></span></button></header>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </dialog>
+
+  <div id="sr-live" class="sr-only" aria-live="polite" role="status"></div>
+
+  <!-- Three.js from a CDN, with a local copy as a fallback -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>window.THREE || document.write('<script src="js/vendor/three.min.js"><\/script>');</script>
+  <script src="js/util.js"></script>
+  <script src="js/data/route.js"></script>
+  <script src="js/data/about.js"></script>
+  <script src="js/data/destinations-1.js"></script>
+  <script src="js/data/destinations-2.js"></script>
+  <script src="js/data/destinations-3.js"></script>
+  <script src="js/data/destinations-4.js"></script>
+  <script src="js/data/missions-1.js"></script>
+  <script src="js/data/missions-2.js"></script>
+  <script src="js/data/glossary.js"></script>
+  <script src="js/data/facts.js"></script>
+  <script src="js/data/sources.js"></script>
+  <script src="js/data/worlds.js"></script>
+  <script src="js/data/scale.js"></script>
+  <script src="js/data/quizzes.js"></script>
+  <script src="js/planets.js"></script>
+  <script src="js/scenery.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
